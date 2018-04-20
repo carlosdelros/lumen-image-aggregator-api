@@ -15,4 +15,18 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    public function boot() {
+
+        // Adds support for Illuminate\Support\Collection to work recursively
+        \Illuminate\Support\Collection::macro('recursive', function () {
+            return $this->map(function ($value) {
+                if (is_array($value) || is_object($value)) {
+                    return collect($value)->recursive();
+                }
+
+                return $value;
+            });
+        });
+    }
 }

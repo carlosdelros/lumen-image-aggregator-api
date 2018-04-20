@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use lluminate\Http\Response;
+use Iluminate\Http\Response;
 use App\Services\Flickr;
 
 class ImagesController extends Controller
@@ -15,7 +15,7 @@ class ImagesController extends Controller
      */
     public function __construct(Flickr $flickr)
     {
-        $this->imageService = $flickr;
+        $this->imageServices = func_get_args();
     }
 
     public function show(Request $request) {
@@ -24,12 +24,10 @@ class ImagesController extends Controller
             $params = [
                 'search_term' => $request->input('q'),
                 'page' => $request->input('page', '1'),
-                'limit' => $request->input('limit', '100')
+                'per_page' => $request->input('limit', '1')
             ];
 
-            $this->imageService->fetchImages($params);
-
-            return response()->json();
+            return response()->json($this->imageServices[0]->fetchImages($params));
         }
     }
 }
