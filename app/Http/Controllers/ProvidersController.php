@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\ImageAggregator;
 
 class ProvidersController extends Controller
  {
-    public function __construct()
-    {
+    private $aggreagtor;
 
+    public function __construct(ImageAggregator $aggregator)
+    {
+        $this->aggregator = $aggregator;
     }
 
-    public function show(Request $request) {
-        return "list of providers";
+    public function show() {
+        return $this->aggregator->getProviders();
     }
 
  }
