@@ -79,8 +79,7 @@ class Pixabay {
                 // Pixabay photo do not contain titles. Title is being extracted from url path.
                 'type' => collect(explode('.', $photo->get('webformatURL')))->last(),
                 'url_to_image' => $photo->get('pageURL'),
-                'url_to_original_image' => $photo->get('webformatURL'),
-                'provider' => 'Pixabay'
+                'url_to_original_image' => $photo->get('webformatURL')
             ];
         });
     }

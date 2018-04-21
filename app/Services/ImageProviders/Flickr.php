@@ -41,7 +41,7 @@ class Flickr {
         $imagesCollection = collect(json_decode($res->getBody()->getContents()))->recursive();
 
         if($imagesCollection->get('stat') != "ok") {
-            return $imagesCollection;
+            return ['error' => $imagesCollection->get('message')];
         }
 
         $data = $imagesCollection->get('photos');
